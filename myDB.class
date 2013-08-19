@@ -1,0 +1,108 @@
+<?php
+class myDB {
+	var $theQuery = "";
+	var $dbID = 0;
+	var $theResults = 0;
+	var $currentElement = 0;
+	var $theServer = "";
+	var $theUser = "";
+	var $thePassword = "";
+	var $theDB = "";
+
+	function myDB($server, $user, $password, $db) {
+		$this->theServer = $server;
+		$this->theUser = $user;
+		$this->thePassword = $password;
+		$this->theDB = $db;
+		$this->dbID = mysql_connect($this->theServer, $this->theUser, $this->thePassword);
+		if (!$this->dbID) {
+			debug("Error connecting to mysql\n");
+			debug(mysql_error());
+			$this->dbID = !1;
+		} else {
+			debug("Connected to mysql\n");
+			if (!mysql_select_db($this->theDB, $this->dbID)) {
+				$this->dbID = !1;
+				debug("Unable to select database\n");
+				debug(mysql_error());
+			} else {
+				debug("Database selected\n");
+			}
+		}
+	}
+
+	function setQuery($query) {
+//		$this->dbID = !1;
+		$this->theQuery = $query;
+		$this->theResults = !1;
+		$this->currentElement = 0;
+	}
+
+	function executeQuery() {
+		// returns 1: success
+		// returns -1: unable to connect to DB
+		// returns -2: execution error
+
+		$return = 1;
+		debug("Executing query: ".$this->theQuery."\n");
+		if ($this->theQuery != "") {
+			if (!$this->dbID) {
+				debug("Not connected to mysql\n");
+				debug(mysql_error());
+				$return = -1;
+			} else {
+				$this->theResults = mysql_query($this->theQuery); 
+				if (!$this->theResults) {
+					debug("Unable to run query\n");
+					debug(mysql_error());
+					$return = -2;
+				}
+			}
+		}
+		return $return;
+	}
+
+	function close() {
+		if ($this->dbID) {
+//			mysql_close($this->dbID);
+		}
+	}
+
+	function hasCurrentElement() {
+		$return = !1;
+		if ($this->theResults) {
+			if ((mysql_num_rows($this->theResults)-$this->currentElement) > 0) {
+				$return = 1;
+			} else {
+				$return = !1;
+			}
+		} else {
+			$return = !1;
+		}
+		return $return;
+	}
+
+	function currentElement() {
+		$return = !1;
+		if ($this->hasCurrentElement()) {
+			$return=mysql_fetch_array($this->theResults);
+			$this->currentElement++;
+		}
+		return $return;
+	}
+
+	function hasMoreElements() {
+		$return = $this->hasCurrentElement();
+		return $return;
+	}
+
+	function nextElement() {
+		$return = !1;
+		if ($this->hasMoreElements()) {
+			$return = $this->currentElement();
+		}
+		return $return;
+	}
+}
+
+?>

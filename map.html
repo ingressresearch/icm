@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+<title></title>
+<link href="http://code.google.com/apis/maps/documentation/javascript/examples/default.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAEw20K5i9zv5Hv1SZat-hCKViQZDxuktA&sensor=false"></script>
+<script type="text/javascript">
+function initialize() {
+  var myOptions = {
+    zoom: #ZOOM#,
+    center: new google.maps.LatLng(#CENTERLAT#,#CENTERLNG#),
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  }
+  var map = new google.maps.Map(document.getElementById("map_canvas"),
+                                myOptions);
+
+  setMarkers(map, beaches);
+  addEdges(map, edge_data);
+}
+
+/**
+ * Data for the markers consisting of a name, a LatLng and a zIndex for
+ * the order in which these markers should display on top of each
+ * other.
+ */
+var beaches = [
+	#ELEMENTS#
+];
+
+function setMarkers(map, locations) {
+  // Add markers to the map
+
+  // Marker sizes are expressed as a Size of X,Y
+  // where the origin of the image (0,0) is located
+  // in the top left of the image.
+
+  // Origins, anchor positions and coordinates of the marker
+  // increase in the X direction to the right and in
+  // the Y direction down.
+  var image = new google.maps.MarkerImage('http://code.google.com/apis/maps/documentation/javascript/examples/images/beachflag.png',
+      // This marker is 20 pixels wide by 32 pixels tall.
+      new google.maps.Size(20, 32),
+      // The origin for this image is 0,0.
+      new google.maps.Point(0,0),
+      // The anchor for this image is the base of the flagpole at 0,32.
+      new google.maps.Point(0, 32));
+  var shadow = new google.maps.MarkerImage('http://code.google.com/apis/maps/documentation/javascript/examples/images/beachflag_shadow.png',
+      // The shadow image is larger in the horizontal dimension
+      // while the position and offset are the same as for the main image.
+      new google.maps.Size(37, 32),
+      new google.maps.Point(0,0),
+      new google.maps.Point(0, 32));
+      // Shapes define the clickable region of the icon.
+      // The type defines an HTML &lt;area&gt; element 'poly' which
+      // traces out a polygon as a series of X,Y points. The final
+      // coordinate closes the poly by connecting to the first
+      // coordinate.
+  var shape = {
+      coord: [1, 1, 1, 20, 18, 20, 18 , 1],
+      type: 'poly'
+  };
+  for (var i = 0; i < locations.length; i++) {
+    var beach = locations[i];
+    var myLatLng = new google.maps.LatLng(beach[0], beach[1]);
+    var marker = new google.maps.Marker({
+        position: myLatLng,
+        map: map,
+//        shadow: shadow,
+//        icon: image,
+	icon: new google.maps.MarkerImage(beach[5]+'-'+beach[3]+'.gif',
+      // This marker is 20 pixels wide by 32 pixels tall.
+      new google.maps.Size(24, 24),
+      // The origin for this image is 0,0.
+      new google.maps.Point(0,0),
+      // The anchor for this image is the base of the flagpole at 0,32.
+      new google.maps.Point(12, 12)), 
+        shape: shape,
+        title: beach[2],
+        zIndex: beach[4]
+    });
+  }
+}
+
+var edge_data = [
+	#EDGEELEMENTS#
+];
+
+function addEdges(map, edges) {
+  for (var i = 0; i < edges.length; i++) {
+    var edge = edges[i];
+    var myLatLng1 = new google.maps.LatLng(edge[0], edge[1]);
+    var myLatLng2 = new google.maps.LatLng(edge[2], edge[3]);
+    var edge = [myLatLng1, myLatLng2];
+
+    var flightPath = new google.maps.Polyline({
+      path: edge,
+      strokeColor: edge[4],
+      strokeOpacity: 1.0,
+      strokeWeight: 2
+    });
+
+    flightPath.setMap(map);  }
+}
+</script>
+</head>
+<body onload="initialize()">
+  <div id="map_canvas"></div>
+</body>
+
+</html>
