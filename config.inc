@@ -29,7 +29,7 @@ $config["longlatslices"] = 3;
 
 include_once("./acsid.inc");
 $config["mapparameters"] = "ingress.intelmap.lat=44.488668; ingress.intelmap.lng=-0.664673; ingress.intelmap.zoom=8";
-$config["cookiestring"] = "Cookie: __utma=24037858.684179029.1357746829.1361271667.1361373461.90; __utmz=24037858.1359118361.32.6.utmcsr=domain.com|utmccn=(referral)|utmcmd=referral|utmcct=/ingresspoitou/portaldetail.php; csrftoken=".$config["X-CSRFToken"]."; __utmc=24037858; ingress.intelmap.type=3; __utmb=24037858.107.9.1361375490507; ACSID=".$config["ACSID"]."; SACSID=".$config["SACSID"].";".$config["mapparameters"];
+$config["cookiestring"] = "Cookie: __utma=24037858.684179029.1357746829.1361271667.1361373461.90; __utmz=24037858.1359118361.32.6.utmcsr=domain.com|utmccn=(referral)|utmcmd=referral|utmcct=/portaldetail.php; csrftoken=".$config["X-CSRFToken"]."; __utmc=24037858; ingress.intelmap.type=3; __utmb=24037858.107.9.1361375490507; ACSID=".$config["ACSID"]."; SACSID=".$config["SACSID"].";".$config["mapparameters"];
 
 $config["centerlat"] = 44.488668;
 $config["centerlng"] = -0.664673;
