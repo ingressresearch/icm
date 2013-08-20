@@ -38,20 +38,20 @@ for ($xcoord=0; $xcoord<$config["longlatslices"]; $xcoord++) {
 		print("ycoord ".$ycoord."\n");
 		print($xstart."/".($xstart+$xdiff)."/".$ystart."/".($ystart+$ydiff)."\n");
 
-		//$bounds = Array("ne"=>Array("lat"=>(($ystart+$ydiff)/1000000),"lng"=>(($xstart+$xdiff)/1000000)), "sw"=>Array("lat"=>($ystart/1000000),"lng"=>($xstart/1000000)));
-		//$tiles = createIngressTiles(Array("lat"=>(($ystart+($ydiff/2))/1000000), "lng"=>(($xstart+($xdiff/2))/1000000)), $bounds);
+		$bounds = Array("ne"=>Array("lat"=>(($ystart+$ydiff)/1000000),"lng"=>(($xstart+$xdiff)/1000000)), "sw"=>Array("lat"=>($ystart/1000000),"lng"=>($xstart/1000000)));
+		$tiles = createIngressTiles(Array("lat"=>(($ystart+($ydiff/2))/1000000), "lng"=>(($xstart+($xdiff/2))/1000000)), $bounds);
 		
-		$quadkey = "013212223212";
-		$tile = Array(
-		    "id"=> $quadkey,
-		    "qk"=> $quadkey,
-		    "minLatE6"=> $ystart,
-		    "minLngE6"=> $xstart,
-		    "maxLatE6"=> $ystart+$ydiff,
-		    "maxLngE6"=> $xstart+$xdiff
-		  );
+		//$quadkey = "013212223212";
+		//$tile = Array(
+		//    "id"=> $quadkey,
+		//    "qk"=> $quadkey,
+		//    "minLatE6"=> $ystart,
+		//    "minLngE6"=> $xstart,
+		//    "maxLatE6"=> $ystart+$ydiff,
+		//    "maxLngE6"=> $xstart+$xdiff
+		//  );
 		
-		$tiles = Array($tile);
+		//$tiles = Array($tile);
 		print("Querying ".count($tiles)." tiles\n");
 		$tilecount=0;
 		while($tilecount<count($tiles)) {

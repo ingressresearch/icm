@@ -5,7 +5,7 @@ include_once("config.inc");
 $EARTH_RADIUS=6378137;
 $PI = 3.1415926535;
 $DEG2RAD = $PI / 180;
-$ingressURL = "https://www.ingress.com/rpc/dashboard.getThinnedEntitiesV2";
+$ingressURL = "https://www.ingress.com/rpc/dashboard.getThinnedEntitiesV4";
 
 function makeIngressRequest($pileoftiles) {
 	global $ingressURL;
@@ -18,7 +18,8 @@ function makeIngressRequest($pileoftiles) {
 		}
 		$data_string .= makeIngressString($tile);
 	}
-	$data_string = "{\"boundsParamsList\":[".$data_string."],\"zoom\":".$config["queryzoom"].",\"method\":\"dashboard.getThinnedEntitiesV2\"}";
+	//$data_string = "{\"boundsParamsList\":[".$data_string."],\"zoom\":".$config["queryzoom"].",\"method\":\"dashboard.getThinnedEntitiesV4\"}";
+	$data_string = "{\"boundsParamsList\":[".$data_string."],\"method\":\"dashboard.getThinnedEntitiesV4\"}";
 	//"{\"boundsParamsList\":[{\"id\":\"".$tile["id"]."\",\"minLatE6\":".$tile["minLatE6"].",\"minLngE6\":".$tile["minLngE6"].",\"maxLatE6\":".$tile["maxLatE6"].",\"maxLngE6\":".$tile["maxLngE6"].",\"qk\":\"".$tile["qk"]."\"}],\"zoom\":".$config["queryzoom"].",\"method\":\"dashboard.getThinnedEntitiesV2\"}";
 	print($data_string."\n");
 	$curl = curl_init();
