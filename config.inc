@@ -23,9 +23,9 @@ $config["minlatE6"] = 42747012;
 $config["minlngE6"] = -1812744;
 $config["maxlatE6"] = 45660127;
 $config["maxlngE6"] = 1472168;
-$config["queryzoom"] = 0; //17=all portals
+$config["queryzoom"] = 15; //17=all portals
 
-$config["longlatslices"] = 3;
+$config["longlatslices"] = 1;
 
 include_once("./acsid.inc");
 $config["mapparameters"] = "ingress.intelmap.lat=44.488668; ingress.intelmap.lng=-0.664673; ingress.intelmap.zoom=8";

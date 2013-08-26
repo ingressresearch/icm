@@ -35,10 +35,11 @@ for ($xcoord=0; $xcoord<$config["longlatslices"]; $xcoord++) {
 	print("xcoord ".$xcoord."\n");
 	$ystart = $config["minlatE6"];	
 	for ($ycoord=0; $ycoord<$config["longlatslices"]; $ycoord++) {
-		print("ycoord ".$ycoord."\n");
+		print("xcoord ".$xcoord." of ".$config["longlatslices"].", ycoord ".$ycoord." of ".$config["longlatslices"]."\n");
 		print($xstart."/".($xstart+$xdiff)."/".$ystart."/".($ystart+$ydiff)."\n");
 
 		$bounds = Array("ne"=>Array("lat"=>(($ystart+$ydiff)/1000000),"lng"=>(($xstart+$xdiff)/1000000)), "sw"=>Array("lat"=>($ystart/1000000),"lng"=>($xstart/1000000)));
+		//$bounds = Array("ne"=>Array("lat"=>46195042/1000000,"lng"=>1230469/1000000), "sw"=>Array("lat"=>45073231/1000000,"lng"=>1054688/1000000));
 		$tiles = createIngressTiles(Array("lat"=>(($ystart+($ydiff/2))/1000000), "lng"=>(($xstart+($xdiff/2))/1000000)), $bounds);
 		
 		//$quadkey = "013212223212";
