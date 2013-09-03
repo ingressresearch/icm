@@ -1,9 +1,12 @@
 <?php
 
+include_once("ingressencoding.inc");
+
 $resonatorEnergy = Array(0, 1000, 1500, 2000, 2500, 3000, 4000, 5000, 6000);
 
 function curl_download($Url, $mintimestamp=-1, $maxtimestamp=-1, $minlatoverride="", $maxlatoverride="", $minlngoverride="", $maxlngoverride=""){
 	global $config;
+	global $encoding0, $encoding1;
 
     if (!function_exists('curl_init')){
        die('Sorry cURL is not installed!');
@@ -19,10 +22,12 @@ function curl_download($Url, $mintimestamp=-1, $maxtimestamp=-1, $minlatoverride
     if ($maxlngoverride!="") { $maxlng = $maxlngoverride; }
     if ($mintimestamp==-1 && $maxtimestamp ==-1) { $mintimestamp = strtotime("-6 hours")*1000; }
     //$data = array("desiredNumItems" => "50","maxLatE6" => "50975033","maxLngE6"=>"8294678","maxTimestampMs" => "-1","minLatE6" => "42491544","minLngE6"=>"-12205811","minTimestampMs" => "-1","method"=>"dashboard.getPaginatedPlextsV2");
-    $data = array("desiredNumItems" => "1000","maxLatE6" => $maxlat,"maxLngE6"=>$maxlng,"maxTimestampMs" => $maxtimestamp,"minLatE6" => $minlat,"minLngE6"=>$minlng,"minTimestampMs" => $mintimestamp,"maxTimestampMs"=>-1,"factionOnly"=>true,"ascendingTimestampOrder"=>true, "method"=>"dashboard.getPaginatedPlextsV2");
-    $data_string = json_encode($data);
+    //$data = array("desiredNumItems" => "1000","maxLatE6" => $maxlat,"maxLngE6"=>$maxlng,"maxTimestampMs" => $maxtimestamp,"minLatE6" => $minlat,"minLngE6"=>$minlng,"minTimestampMs" => $mintimestamp,"maxTimestampMs"=>-1,"factionOnly"=>true,"ascendingTimestampOrder"=>true, "method"=>"dashboard.getPaginatedPlextsV2");
+    //$data_string = json_encode($data);
     //$data_string = "{\"desiredNumItems\":50,\"minLatE6\":-52593704,\"minLngE6\":-170507812,\"maxLatE6\":74353051,\"maxLngE6\":164531250,\"minTimestampMs\":1367998422504,\"maxTimestampMs\":-1,\"factionOnly\":true,\"ascendingTimestampOrder\":true,\"method\":\"dashboard.getPaginatedPlextsV2\"}";
-    $data_string = "{\"desiredNumItems\":1000,\"minLatE6\":$minlat,\"minLngE6\":$minlng,\"maxLatE6\":$maxlat,\"maxLngE6\":$maxlng,\"minTimestampMs\":$mintimestamp,\"maxTimestampMs\":$maxtimestamp,\"factionOnly\":false,\"ascendingTimestampOrder\":false,\"method\":\"dashboard.getPaginatedPlextsV2\"}";
+    //$data_string = "{\"desiredNumItems\":1000,\"minLatE6\":$minlat,\"minLngE6\":$minlng,\"maxLatE6\":$maxlat,\"maxLngE6\":$maxlng,\"minTimestampMs\":$mintimestamp,\"maxTimestampMs\":$maxtimestamp,\"factionOnly\":false,\"ascendingTimestampOrder\":false,\"method\":\"dashboard.getPaginatedPlextsV2\"}";
+    //$data_string = "{\"4kr3ofeptwgary2j\":\"dashboard.getPaginatedPlextsV2\",\"tmb0vgxgp5grsnhp\":100,\"pg98bwox95ly0ouu\":45595812,\"eib1bkq8znpwr0g7\":80009,\"ilfap961rwdybv63\":45703610,\"lpf7m1ifx0ieouzq\":234217,\"hljqffkpwlx0vtjt\":1378107100257,\"sw317giy6x2xj9zm\":-1,\"0dvtbatgzcfccchh\":true}";
+    $data_string = "{\"".$encoding0["desiredNumItems"]."\":1000,\"".$encoding0["minLatE6"]."\":$minlat,\"".$encoding0["minLngE6"]."\":$minlng,\"".$encoding0["maxLatE6"]."\":$maxlat,\"".$encoding0["maxLngE6"]."\":$maxlng,\"".$encoding0["minTimestampMs"]."\":$mintimestamp,\"".$encoding0["maxTimestampMs"]."\":$maxtimestamp,\"".$encoding0["factionOnly"]."\":false,\"".$encoding0["method"]."\":\"dashboard.getPaginatedPlextsV2\"}";
     print($data_string);                                                                                                                                                              
 
     $curl = curl_init();
