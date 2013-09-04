@@ -1720,7 +1720,7 @@ function updateField($fieldid, $portalAid, $portalBid, $portalCid, $score, $team
 		$db =& new myDB($config["dbserver"], $config["dbuser"], $config["dbpassword"], $config["dbdatabase"]);
 		if ($db->dbID) {
 			$query = "update portalfield set creationtime='".addslashes(date("Y-m-d H:i:s", $creationtime))."', portalAid='".addslashes($portalAid)."', portalBid='".addslashes($portalBid)."', portalCid='".addslashes($portalCid)."',
-				score=".addslashes($score).",
+				score=".addslashes($score!=""?$score:0).",
 				team='".addslashes($team)."', playerid='".addslashes($playerid)."'";
 			$query .= " where guid='".addslashes($fieldid)."';";
 			$db->setQuery($query);
@@ -1745,7 +1745,7 @@ function addField($fieldid, $portalAid, $portalBid, $portalCid, $score, $team, $
 	$temp = true;
 	$db =& new myDB($config["dbserver"], $config["dbuser"], $config["dbpassword"], $config["dbdatabase"]);
 	if ($db->dbID) {
-		$query = "insert into portalfield(guid, portalAid, portalBid, portalCid, score, team, playerid, creationtime) values ('".addslashes($fieldid)."', '".addslashes($portalAid)."', '".addslashes($portalBid)."', '".addslashes($portalCid)."', ".addslashes($score).", '".addslashes($team)."', '".addslashes($playerid)."', '".addslashes(date("Y-m-d H:i:s", $creationtime))."');";
+		$query = "insert into portalfield(guid, portalAid, portalBid, portalCid, score, team, playerid, creationtime) values ('".addslashes($fieldid)."', '".addslashes($portalAid)."', '".addslashes($portalBid)."', '".addslashes($portalCid)."', ".addslashes($score!=""?$score:0).", '".addslashes($team)."', '".addslashes($playerid)."', '".addslashes(date("Y-m-d H:i:s", $creationtime))."');";
 		$db->setQuery($query);
 		if ($db->executeQuery()) {
 		} else {
